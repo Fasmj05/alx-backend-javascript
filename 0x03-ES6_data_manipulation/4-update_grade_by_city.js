@@ -1,7 +1,13 @@
-export default function createInt8TypedArray(length, position, value) {
-  const buffer = new ArrayBuffer(length);
-  const view = new DataView(buffer, 0);
-  if (position > length - 1) throw Error('Position outside range');
-  view.setInt8(position, value);
-  return view;
+export default function updateStudentGradeByCity(students, city, newGrades) {
+  // check arg is an array
+  if (Object.getPrototypeOf(students) !== Array.prototype) {
+    return [];
+  }
+  if (Object.getPrototypeOf(newGrades) !== Array.prototype) {
+    return [];
+  }
+  return students.filter((student) => student.location === city).map((student) => {
+    const [newGrade] = newGrades.filter((item) => item.studentId === student.id);
+    return { ...student, grade: newGrade ? newGrade.grade : 'N/A' };
+  });
 }
